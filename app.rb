@@ -1,6 +1,8 @@
 require 'sinatra'
 require 'sass'
 require 'pp'
+require 'haml'
+require './usuarios.rb'
 
 settings.port = ENV['PORT'] || 4567
 #enable :sessions
