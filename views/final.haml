@@ -1,3 +1,22 @@
+.barra-superior
+  -if (!usuario)
+    %form{:action=>"/",:method=>"post"}
+      USUARIO
+      %input{:type=>"text",:name=>"usuario[username]"}
+      %input{:type=>"hidden",:name=>"usuario[ganadas]",:value=>"0"}
+      %input{:type=>"hidden",:name=>"usuario[perdidas]",:value=>"0"}
+      %input{:type=>"hidden",:name=>"usuario[jugadas]",:value=>"0"}
+      %input{:type=>"submit",:value=>"ENTRAR"}
+  -else
+    %form{:action=>"/",:method=>"post"}
+      Hola, #{usuario}
+      %input{:type=>"hidden",:value=>"1",:name=>"logout"}
+      %input{:type=>"submit",:value=>"SALIR"}
+      
+.marcador
+  %a{:href=>"/usuarios"}
+    %img{:src=>"/images/ranking.gif"}
+    
 .gameboard
   - HORIZONTALS.each do |row| 
     .gamerow

@@ -56,6 +56,10 @@ module TicTacToe
     session["bs"]
   end
 
+  def usuario
+     session["usuario"]
+  end
+
   def [] key
     board[key]
   end
@@ -157,7 +161,7 @@ get %r{^/([abc][123])?$} do |human|
       # computer = board.legal_moves.sample
       computer = smart_move
       redirect to ('/humanwins') if human_wins?
-      redirect to('/') unless computer
+      redirect to('/tie') unless computer
       board[computer] = TicTacToe::CROSS
       puts "I played: #{computer}!"
       puts "Tablero:  #{board.inspect}"
