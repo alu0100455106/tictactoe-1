@@ -1,13 +1,12 @@
 require 'sinatra'
 require 'sass'
 require 'pp'
-require 'haml'
 require './usuarios.rb'
 
 settings.port = ENV['PORT'] || 4567
 #enable :sessions
 use Rack::Session::Pool, :expire_after => 2592000
-#set :session_secret, 'super secret'
+set :session_secret, 'super secret'
 
 #configure :development, :test do
 #  set :sessions, :domain => 'example.com'
@@ -17,7 +16,6 @@ use Rack::Session::Pool, :expire_after => 2592000
 #  set :sessions, :domain => 'herokuapp.com'
 #end
 
-
 configure :development do
   DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
 end
@@ -26,8 +24,8 @@ configure :production do
   DataMapper.setup(:default, ENV['DATABASE_URL'])
 end
 
+#DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
 DataMapper.auto_upgrade!
-
 
 module TicTacToe
   HUMAN = CIRCLE = "circle" # human
@@ -57,7 +55,7 @@ module TicTacToe
   end
 
   def usuario
-     session["usuario"]
+    session["usuario"]
   end
 
   def [] key
@@ -143,11 +141,13 @@ module TicTacToe
   def computer_wins?
     winner == COMPUTER
   end
-  
+
   def tie?
-     ((winner != COMPUTER) && (winner != HUMAN))
-  end
+    ((winner != COMPUTER) && (winner != HUMAN))
+  end  
 end
+
+
 
 helpers TicTacToe
 
@@ -176,98 +176,98 @@ get %r{^/([abc][123])?$} do |human|
 end
 
 get '/humanwins' do
-   puts "/humanwins session="
-   pp session
-   begin
-      m = if human_wins? then
-         if (session["usuario"] != nil)
-            user = Usuario.first(:username => session["usuario"])
-            user.ganadas += 1
-            user.jugadas += 1
-            user.save
-            pp user
-            p "------"
-            end
-            'You win...!!!'
-         else 
-            redirect '/'
-         end
-      haml :final, :locals => { :b => board, :m => m }
-   rescue
-      redirect '/'
-   end
+  puts "/humanwins session="
+  pp session
+  begin
+    m = if human_wins? then
+          if (session["usuario"] != nil)
+            el_usuario = Usuario.first(:username => session["usuario"])
+            el_usuario.ganadas += 1
+            el_usuario.jugadas += 1
+            el_usuario.save
+            pp el_usuario
+            p "---------"
+          end
+          '¡Has ganado!'
+        else 
+          redirect '/'
+        end
+    haml :final, :locals => { :b => board, :m => m }
+  rescue
+    redirect '/'
+  end
 end
 
 get '/computerwins' do
-   puts "/computerwins"
-   pp session
-   begin
-      m = if computer_wins? then
-            
-         if (session["usuario"] != nil)
-            user = Usuario.first(:username => session["usuario"])
-            user.perdidas += 1
-            user.jugadas += 1
-            user.save                            
-            end
-            'Computer wins...!!!'
-         else 
-            redirect '/'
-         end
-      haml :final, :locals => { :b => board, :m => m }
-   rescue
-      redirect '/'
-   end
+  puts "/computerwins"
+  pp session
+  begin
+    m = if computer_wins? then
+          if (session["usuario"] != nil)
+            el_usuario = Usuario.first(:username => session["usuario"])
+            el_usuario.perdidas += 1
+            el_usuario.jugadas += 1
+            el_usuario.save
+          end
+          '¡Has perdido!'
+        else 
+          redirect '/'
+        end
+    haml :final, :locals => { :b => board, :m => m }
+  rescue
+    redirect '/'
+  end
 end
 
 get '/tie' do
-   puts "/tie"
-   pp session
-   begin
-      m = if tie? then
-         if (session["usuario"] != nil)
-            user = Usuario.first(:username => session["usuario"])
-            user.jugadas += 1
-            user.save
-            end
-            'Ha habido empate..!!'
-         else 
-            redirect '/'
-         end
-      haml :final, :locals => { :b => board, :m => m }
-   rescue
-      redirect '/'
-   end
-end                    
-                    
+  puts "/tie"
+  pp session
+  begin
+    m = if tie? then
+          if (session["usuario"] != nil)
+            el_usuario = Usuario.first(:username => session["usuario"])
+            el_usuario.jugadas = el_usuario.jugadas + 1
+            el_usuario.save
+          end
+          '¡Ha habido empate!'
+        else 
+          redirect '/'
+        end
+    haml :final, :locals => { :b => board, :m => m }
+  rescue
+    redirect '/'
+  end
+end
+
+
 post '/' do
-   if params[:logout]
+  if params[:logout]
+    @usuario = nil
+    session["usuario"] = nil
+    session.clear
+  else
+    nick = params[:usuario]
+    nick = nick["username"]
+    u = Usuario.first(:username => "#{nick}" )
+    if u == nil
+      usuario = Usuario.create(params[:usuario])
+      usuario.save
+      Aux = params[:usuario]
+      pp params[:usuario]
+      @usuario = Aux["username"]
+      p "ATENCION!!!!!!!!"
+      pp @usuario
+      session["usuario"] = @usuario
+    else
+      p "Ya existe un usuario con ese nombre!"
       @usuario = nil
       session["usuario"] = nil
       session.clear
-   else
-      nick = params[:usuario]
-      nick = nick["username"]
-      yaexiste = Usuario.first(:username => "#{nick}" )
-      if yaexiste == nil
-         usuario = Usuario.create(params[:usuario])
-         usuario.save
-         Aux = params[:usuario]
-         pp params[:usuario]
-         @usuario = Aux["username"]
-         p "ATENCION"
-         pp @usuario
-         session["usuario"] = @usuario
-      else
-         p "El nombre escogido ya está en uso, elija otro."
-         @usuario = nil
-         session["usuario"] = nil
-         session.clear
-      end
-   end
-      redirect '/'
-end                       
-                    
+    end
+  end
+    redirect '/'
+end
+
 not_found do
   puts "not found!!!!!!!!!!!"
   session["bs"] = inicializa()

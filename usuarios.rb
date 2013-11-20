@@ -1,7 +1,7 @@
 require 'dm-core'
 require 'dm-migrations'
 
-class Usario
+class Usuario
   include DataMapper::Resource
   property :id, Serial
   property :username, String
@@ -13,6 +13,6 @@ end
 DataMapper.finalize
 
 get '/usuarios' do
-   @usuarios = Usario.all
-   haml :usuarios
+  @usuarios = Usuario.all
+  haml :usuarios
 end

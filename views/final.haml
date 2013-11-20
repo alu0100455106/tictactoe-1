@@ -1,17 +1,17 @@
 .barra-superior
   -if (!usuario)
     %form{:action=>"/",:method=>"post"}
-      USUARIO
+      Introduzca un nombre
       %input{:type=>"text",:name=>"usuario[username]"}
       %input{:type=>"hidden",:name=>"usuario[ganadas]",:value=>"0"}
       %input{:type=>"hidden",:name=>"usuario[perdidas]",:value=>"0"}
       %input{:type=>"hidden",:name=>"usuario[jugadas]",:value=>"0"}
-      %input{:type=>"submit",:value=>"ENTRAR"}
+      %input{:type=>"submit",:value=>"Entrar"}
   -else
     %form{:action=>"/",:method=>"post"}
       Hola, #{usuario}
       %input{:type=>"hidden",:value=>"1",:name=>"logout"}
-      %input{:type=>"submit",:value=>"SALIR"}
+      %input{:type=>"submit",:value=>"Cerrar sesión"}
       
 .marcador
   %a{:href=>"/usuarios"}

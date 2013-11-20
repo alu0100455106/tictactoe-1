@@ -1,27 +1,44 @@
-%a{:href=>"/"}
-        %img{:src=>"/images/jugar.gif"}
+.button
+  %a{:href=>"/"}
+    %img{:src=>"/images/jugar.gif"}
         
 .message
-        %center
-                %img{:src=>"/images/ranking.gif"}
-                %table
-                        %tr
-                                %th
-                                %th Nombre
-                                %th
-                                %th Ganadas
-                                %th
-                                %th Perdidas
-                                %th
-                                %th Jugadas
+  %center
+    %h3 Ranking
+    %table
+      %tr
+        %th
+        %th Nombre
+        %th
+        %th
+        %th
+        %th
+        %th
+        %th                
+        %th
+        %th Ganadas
+        %th
+        %th Perdidas
+        %th
+        %th Jugadas
                                 
-                        - @usuarios.sort_by {|k, v| v}.reverse.each do |usuario| 
-                                %tr
-                                        %td
-                                                #{usuario.username}
-                                        %td
-                                                #{usuario.ganadas}
-                                        %td        
-                                                #{usuario.perdidas}
-                                        %td        
-                                                #{usuario.jugadas}
+      - @usuarios.sort_by {|k, v| v}.reverse.each do |usuario| 
+        %tr
+          %td
+          %td
+            #{usuario.username}
+          %td
+          %td
+          %td
+          %td
+          %td
+          %td
+          %td
+          %td
+            #{usuario.ganadas}
+          %td
+          %td
+            #{usuario.perdidas}
+          %td
+          %td
+            #{usuario.jugadas}

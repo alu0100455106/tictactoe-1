@@ -4,7 +4,7 @@ body {
   background-size: cover; }
 
 .gameboard {
-  width: 500px;
+  width: 450px;
   margin: 0 auto;
   text-align: center; }
 
@@ -14,15 +14,42 @@ body {
 .cell {
   color: blue;
   background-color: white;
-  opacity: 0.8;
-  width: 58.82353px;
-  height: 58.82353px;
-  margin: 4.90196px;
-  padding: 45.24887px;
+  opacity: 0.6;
+  width: 52.94118px;
+  height: 52.94118px;
+  margin: 4.41176px;
+  padding: 40.72398px;
   float: left; }
   .cell:hover {
     color: black;
     background-color: #9900ff; }
+
+#a1:hover {
+  background-color: #99ff66; }
+
+#a2:hover {
+  background-color: #ff9933; }
+
+#a3:hover {
+  background-color: #99ff66; }
+
+#b1:hover {
+  background-color: #ff9933; }
+
+#b2:hover {
+  background-color: #99ff66; }
+
+#b3:hover {
+  background-color: #ff9933; }
+
+#c1:hover {
+  background-color: #99ff66; }
+
+#c2:hover {
+  background-color: #ff9933; }
+
+#c3:hover {
+  background-color: #99ff66; }
 
 .cross {
   background: url("/images/cross.gif") no-repeat;
@@ -38,4 +65,18 @@ body {
 
 .message {
   display: inline;
-  background-color: transparent; }
+  background-color: transparent;
+  color: black; }
+
+.barra-superior {
+  text-align: right;
+  color: black;
+  margin-top: 100px;
+  margin-right: 95px; }
+
+.marcador {
+  margin-left: 90px; }
+
+.button {
+  margin-top: 110px;
+  margin-left: 90px; }

@@ -2,16 +2,25 @@ $red:   #903;
 $black: #444;
 $white: #fff;
 $ull:   #9900FF;
-$pink:  #F9A7B0;
+$darkblue:  #F9A7B0;
+
+$par: #FF9933;
+$impar: #99FF66;
+
+$i: 1;
+$a: 0;
+$b: 3;
+$c: 6;
+
 
 $main-font: Helvetica, Arial, sans-serif;
 $message-font: 22px/1;
 
 $board-left: 300px;
 $board-margin: 0 auto;
-$board-size: 500px;
+$board-size: 450px;
 
-$opacity:  0.8;
+$opacity:  0.6;
 
 $cell-width:    $board-size/8.5;
 $cell-height:   $board-size/8.5;
@@ -47,6 +56,32 @@ body       {
              float: left; 
            }
 
+@for $i from 1 through 3 {        
+  @if ( (($i+$a) % (2)) == 0 ){ 
+    #a#{$i}:hover {background-color:$par;}
+  }
+  @else {
+    #a#{$i}:hover {background-color:$impar;}
+  }
+}
+
+@for $i from 1 through 3 {
+  @if ( (($i+$b) % (2)) == 0 ){ 
+    #b#{$i}:hover {background-color:$par;}
+  }
+  @else {
+    #b#{$i}:hover {background-color:$impar;}
+  }
+}
+@for $i from 1 through 3 {
+  @if ( (($i+$c) % (2)) == 0 ){ 
+    #c#{$i}:hover {background-color:$par;}
+  }
+  @else {
+    #c#{$i}:hover {background-color:$impar;}
+  }
+}
+
 @mixin game-piece($image) {
   background: url($image)  no-repeat; background-size: cover; 
 }
@@ -54,11 +89,27 @@ body       {
 .cross     { @include game-piece($cross); }
 .circle    { @include game-piece($circle); }
 
-.base-font { color: $pink; font: $message-font $main-font; }
+.base-font { color: $darkblue; font: $message-font $main-font; }
 
 .message   { 
              @extend .base-font;
              display: inline;
              background-color:transparent;
+             color:black;
            }
 
+.barra-superior {
+  text-align: right;
+  color:black;
+  margin-top:100px;
+  margin-right:95px;
+}
+
+.marcador {
+  margin-left:90px;
+}
+
+.button {
+  margin-top:110px;
+  margin-left:90px;  
+}
