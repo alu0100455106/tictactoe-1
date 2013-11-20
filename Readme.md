@@ -1,4 +1,5 @@
-# Practica 7 - Building a Simple Sinatra Tic-Tac-Toe game 
+## Practica 7 - SYTW
+#Building a Simple Sinatra Tic-Tac-Toe game 
 
 ***
 
