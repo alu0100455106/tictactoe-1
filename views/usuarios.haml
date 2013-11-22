@@ -20,6 +20,8 @@
         %th
         %th Perdidas
         %th
+        %th Empates
+        %th
         %th Jugadas
                                 
       - @usuarios.sort_by {|k, v| v}.reverse.each do |usuario| 
@@ -39,6 +41,9 @@
           %td
           %td
             #{usuario.perdidas}
+          %td
+          %td
+            #{usuario.empatadas}
           %td
           %td
             #{usuario.jugadas}

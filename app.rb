@@ -226,7 +226,8 @@ get '/tie' do
     m = if tie? then
           if (session["usuario"] != nil)
             el_usuario = Usuario.first(:username => session["usuario"])
-            el_usuario.jugadas = el_usuario.jugadas + 1
+            el_usuario.jugadas += 1
+            el_usuario.empatadas += 1
             el_usuario.save
           end
           '¡Ha habido empate!'
@@ -260,7 +261,6 @@ post '/' do
       session["usuario"] = @usuario
     else
       p "Ya existe un usuario con ese nombre!"
-      puts "Ya existe un usuario con ese nombre!"
       @usuario = nil
       session["usuario"] = nil
       session.clear

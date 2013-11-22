@@ -7,6 +7,7 @@ class Usuario
   property :username, String
   property :ganadas, Integer
   property :perdidas, Integer
+  property :empatadas, Integer
   property :jugadas, Integer
 end
 
